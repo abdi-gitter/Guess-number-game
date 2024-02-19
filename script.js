@@ -30,7 +30,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     attempts++;
-    attemptCount.textContent = `Attempts: ${attempts}`;
+    attemptCount.textContent = ` ${attempts}`;
 
     if (userGuess === secretNumber) {
       hint.textContent = "Congratulations! You've guessed the right number!";
@@ -70,7 +70,7 @@ document.addEventListener('DOMContentLoaded', () => {
     guessInput.disabled = false;
     checkButton.disabled = false;
     hint.textContent = 'Guess a number!';
-    attemptCount.textContent = `Attempts: ${attempts}`;
+    attemptCount.textContent = ` ${attempts}`;
     guessInput.value = '';
 
     if (playAgainButton) {
