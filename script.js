@@ -1,8 +1,8 @@
 document.addEventListener('DOMContentLoaded', () => {
-  let secretNumber = Math.floor(Math.random() * 10) + 1;
+  let secretNumber = Math.floor(Math.random() * 100) + 1;
   let attempts = 0;
   let lowestGuess = 1;
-  let highestGuess = 10;
+  let highestGuess = 100;
   const maxAttempts = 5; // Adjust the max number of allowed guesses
 
   // DOM elements
@@ -61,10 +61,10 @@ document.addEventListener('DOMContentLoaded', () => {
   };
 
   const resetGame = () => {
-    secretNumber = Math.floor(Math.random() * 10) + 1;
+    secretNumber = Math.floor(Math.random() * 100) + 1;
     attempts = 0;
     lowestGuess = 1;
-    highestGuess = 10;
+    highestGuess = 100;
     updateGameTitle();
 
     guessInput.disabled = false;
@@ -90,6 +90,14 @@ document.addEventListener('DOMContentLoaded', () => {
   checkButton.addEventListener('click', handleGuess);
   
 });
+
+
+
+
+
+
+
+
 
 
  /* const guessingGame = () => {
