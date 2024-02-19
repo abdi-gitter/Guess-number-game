@@ -85,6 +85,11 @@ checkButton.addEventListener('click', handleGuess);
 
 
 
+
+
+
+
+
 /* let secretNumber = Math.floor(Math.random() * 100) + 1;
 let attempts = 0;
 let lowestGuess = 1;
