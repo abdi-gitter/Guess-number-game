@@ -1,151 +1,91 @@
-let secretNumber = Math.floor(Math.random() * 100) + 1;
-let attempts = 0;
-let lowestGuess = 1;
-let highestGuess = 100;
-const maxAttempts = 5; // You can adjust the max number of allowed guesses here
+document.addEventListener('DOMContentLoaded', () => {
+  let secretNumber = Math.floor(Math.random() * 100) + 1;
+  let attempts = 0;
+  let lowestGuess = 1;
+  let highestGuess = 100;
+  const maxAttempts = 5; // Adjust the max number of allowed guesses
 
-// Grabbing the necessary DOM elements
-const guessInput = document.getElementById('guess-input');
-const hint = document.getElementById('hint');
-const attemptCount = document.getElementById('attempt-count');
-const checkButton = document.getElementById('check-button');
+  // DOM elements
+  const gameTitle = document.querySelector('h1'); // Assuming your title is within an <h1> tag
+  const guessInput = document.getElementById('guess-input');
+  const hint = document.getElementById('hint');
+  const attemptCount = document.getElementById('attempt-count');
+  const checkButton = document.getElementById('check-button');
+  let playAgainButton; // This will hold the play again button if it's been added
 
-// Function to handle the guess
-const handleGuess = () => {
+  // Update game title based on guesses
+  const updateGameTitle = () => {
+    gameTitle.textContent = `Guess The Number (${lowestGuess} - ${highestGuess})`;
+  };
+
+  // Initially set game title
+  updateGameTitle();
+
+  const handleGuess = () => {
     const userGuess = parseInt(guessInput.value);
 
     if (isNaN(userGuess) || userGuess < lowestGuess || userGuess > highestGuess) {
-        hint.textContent = `Enter a number between ${lowestGuess} and ${highestGuess}.`;
-        return;
+      hint.textContent = `Enter a number between ${lowestGuess} and ${highestGuess}.`;
+      return;
     }
 
     attempts++;
-    attemptCount.textContent = ` ${attempts}`;
+    attemptCount.textContent = `Attempts: ${attempts}`;
 
     if (userGuess === secretNumber) {
-        hint.textContent = "Congratulations! You've guessed the right number!";
-        guessInput.disabled = true;
-        checkButton.disabled = true;
-        showPlayAgainButton();
-    } else if (userGuess < secretNumber) {
-        hint.textContent = `Enter a number higher than ${userGuess}.`;
-        lowestGuess = userGuess + 1;
+      hint.textContent = "Congratulations! You've guessed the right number!";
+      endGame();
     } else {
-        hint.textContent = `Enter a number lower than ${userGuess}.`;
+      if (userGuess < secretNumber) {
+        hint.textContent = `Guess higher!`;
+        lowestGuess = userGuess + 1;
+      } else {
+        hint.textContent = `Guess lower!`;
         highestGuess = userGuess - 1;
+      }
+      updateGameTitle();
     }
 
-    // Check if the maximum number of attempts has been reached
     if (attempts >= maxAttempts) {
-        hint.textContent = `Sorry, you've reached the maximum number of attempts. The number was ${secretNumber}.`;
-        guessInput.disabled = true;
-        checkButton.disabled = true;
-        showPlayAgainButton();
+      hint.textContent = `Sorry, you've reached the maximum number of attempts. The number was ${secretNumber}.`;
+      endGame();
     }
 
-    // Clear the input for the next guess
-    guessInput.value = '';
-};
+    guessInput.value = ''; // Clear the input for the next guess
+  };
 
-// Function to reset the game
-const resetGame = () => {
-    // Generate a new secret number
+  const endGame = () => {
+    guessInput.disabled = true;
+    checkButton.disabled = true;
+    if (!playAgainButton) showPlayAgainButton(); // Only show if it doesn't already exist
+  };
+
+  const resetGame = () => {
     secretNumber = Math.floor(Math.random() * 100) + 1;
     attempts = 0;
     lowestGuess = 1;
     highestGuess = 100;
+    updateGameTitle();
 
-    // Reset the DOM elements
     guessInput.disabled = false;
     checkButton.disabled = false;
-    hint.textContent = 'Write the number.';
-    attemptCount.textContent = `: ${attempts}`;
+    hint.textContent = 'Guess a number!';
+    attemptCount.textContent = `Attempts: ${attempts}`;
     guessInput.value = '';
 
-    // Remove the Play Again button
-    const playAgainButton = document.getElementById('play-again-button');
     if (playAgainButton) {
-        playAgainButton.remove();
+      playAgainButton.remove();
+      playAgainButton = null; // Ensure it's reset so it can be added again next time
     }
-};
+  };
 
-// Function to show the Play Again button
-const showPlayAgainButton = () => {
-    const playAgainButton = document.createElement('button');
+  const showPlayAgainButton = () => {
+    playAgainButton = document.createElement('button');
     playAgainButton.textContent = 'Play Again';
     playAgainButton.id = 'play-again-button';
+    document.querySelector('.game-container').appendChild(playAgainButton); // Ensure the button is added within the container
     playAgainButton.addEventListener('click', resetGame);
-    document.body.appendChild(playAgainButton);
-};
+  };
 
-// Adding event listener to the check button
-checkButton.addEventListener('click', handleGuess);
-
-
-
-
-
-
-
-
-
-
-/* let secretNumber = Math.floor(Math.random() * 100) + 1;
-let attempts = 0;
-let lowestGuess = 1;
-let highestGuess = 100;
-
-document.getElementById('check-button').onclick = function() {
-    const guessInput = document.getElementById('guess-input');
-    const userGuess = parseInt(guessInput.value);
-    const hint = document.getElementById('hint');
-    const attemptCount = document.getElementById('attempt-count');
-
-    if (userGuess < lowestGuess || userGuess > highestGuess || isNaN(userGuess)) {
-        hint.textContent = `Enter a number between ${lowestGuess} and ${highestGuess}.`;
-        return;
-    }
-
-    attempts++;
-    attemptCount.textContent = attempts;
-
-    if (userGuess === secretNumber) {
-        hint.textContent = "Congratulations! You've guessed the right number!";
-        guessInput.disabled = true;
-        document.getElementById('check-button').disabled = true;
-    } else if (userGuess < secretNumber) {
-        hint.textContent = `Enter a number between ${userGuess} and ${highestGuess}.`;
-        lowestGuess = userGuess + 1;
-    } else {
-        hint.textContent = `Enter a number between ${lowestGuess} and ${userGuess}.`;
-        highestGuess = userGuess - 1;
-    }
-}; */
-
-
-
- /* const guessingGame = () => {
-  let life = 5;
-  const winnigNumber = Math.floor(Math.random() * 100 + 1)
-  console.log(winnigNumber)
-  let guessedNumber;
-  do{
-    guessedNumber = Number(prompt("Enter a number between 1 to 100;"))
-    if(guessedNumber === winnigNumber){
-      console.log("Congrats you have found our number!")
-      break
-    } else {
-      console.log("You have " + (life - 1) + " number of lives")
-      if(guessedNumber > winnigNumber){
-        console.log("Guess lower")
-      } else {
-        console.log("Guess higher")
-      }
-    }
-    life = life - 1
-    console.log(guessedNumber)
-  } while(life > 0)
-  if(life === 0) {
-    console.log ("Sorry but you lost! Our number was: " + winnigNumber)
-  }
-}  */
+  checkButton.addEventListener('click', handleGuess);
+});
