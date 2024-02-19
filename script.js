@@ -20,7 +20,7 @@ const handleGuess = () => {
     }
 
     attempts++;
-    attemptCount.textContent = `Number of attempts: ${attempts}`;
+    attemptCount.textContent = ` ${attempts}`;
 
     if (userGuess === secretNumber) {
         hint.textContent = "Congratulations! You've guessed the right number!";
@@ -59,7 +59,7 @@ const resetGame = () => {
     guessInput.disabled = false;
     checkButton.disabled = false;
     hint.textContent = 'Write the number.';
-    attemptCount.textContent = `Number of attempts: ${attempts}`;
+    attemptCount.textContent = `: ${attempts}`;
     guessInput.value = '';
 
     // Remove the Play Again button
