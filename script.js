@@ -1,8 +1,8 @@
 document.addEventListener('DOMContentLoaded', () => {
-  let secretNumber = Math.floor(Math.random() * 100) + 1;
+  let secretNumber = Math.floor(Math.random() * 10) + 1;
   let attempts = 0;
   let lowestGuess = 1;
-  let highestGuess = 100;
+  let highestGuess = 10;
   const maxAttempts = 5; // Adjust the max number of allowed guesses
 
   // DOM elements
@@ -61,10 +61,10 @@ document.addEventListener('DOMContentLoaded', () => {
   };
 
   const resetGame = () => {
-    secretNumber = Math.floor(Math.random() * 100) + 1;
+    secretNumber = Math.floor(Math.random() * 10) + 1;
     attempts = 0;
     lowestGuess = 1;
-    highestGuess = 100;
+    highestGuess = 10;
     updateGameTitle();
 
     guessInput.disabled = false;
@@ -88,4 +88,32 @@ document.addEventListener('DOMContentLoaded', () => {
   };
 
   checkButton.addEventListener('click', handleGuess);
+  
 });
+
+
+ /* const guessingGame = () => {
+  let life = 5;
+  const winnigNumber = Math.floor(Math.random() * 100 + 1)
+  console.log(winnigNumber)
+  let guessedNumber;
+  do{
+    guessedNumber = Number(prompt("Enter a number between 1 to 100;"))
+    if(guessedNumber === winnigNumber){
+      console.log("Congrats you have found our number!")
+      break
+    } else {
+      console.log("You have " + (life - 1) + " number of lives")
+      if(guessedNumber > winnigNumber){
+        console.log("Guess lower")
+      } else {
+        console.log("Guess higher")
+      }
+    }
+    life = life - 1
+    console.log(guessedNumber)
+  } while(life > 0)
+  if(life === 0) {
+    console.log ("Sorry but you lost! Our number was: " + winnigNumber)
+  }
+}  */
